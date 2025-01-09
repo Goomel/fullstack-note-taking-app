@@ -1,18 +1,19 @@
 import { prisma } from "@/lib/prisma";
 
 interface Params {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 }
 
-export default async function NotePage({ params }: Params) {
-	const note = await prisma.note.findUnique({
+export default async function NotePage(props: Params) {
+    const params = await props.params;
+    const note = await prisma.note.findUnique({
 		where: {
 			id: await params.id,
 		},
 	});
-	return (
+    return (
 		<div>
 			<h1>Note: {note?.title}</h1>
 			<p>{note?.content}</p>
