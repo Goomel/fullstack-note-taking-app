@@ -1,9 +1,13 @@
-import LoginForm from "./components/form/LoginForm";
+import SignInForm from "./components/form/SignInForm";
+
+const isLoggedIn = false;
 
 export default async function Home() {
-	return (
-		<div>
-			<LoginForm />
+	return isLoggedIn ? (
+		<p>You are logged in</p>
+	) : (
+		<div className="flex items-center justify-center h-screen bg-sky-100">
+			<SignInForm />
 		</div>
 	);
 }
