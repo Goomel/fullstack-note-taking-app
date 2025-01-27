@@ -6,8 +6,13 @@ import z from "zod";
 import FormField from "../ui/FormField";
 import ButtonPrimary from "../ui/ButtonPrimary";
 import { AuthForm } from "../ui/AuthForm";
+import { registerUser } from "@/app/actions/auth";
 
 const schema = z.object({
+	username: z
+		.string()
+		.min(3, "Username must be at least 3 characters long")
+		.max(20, "Username must be at most 20 characters long"),
 	email: z.string().email("Invalid email address"),
 	password: z.string().min(6, "Password must be at least 6 characters long"),
 });
@@ -23,8 +28,13 @@ const SignUpForm = () => {
 		resolver: zodResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<FormFields> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<FormFields> = async (data) => {
+		try {
+			const response = await registerUser(data);
+			console.log(response);
+		} catch (error) {
+			console.error("Error during registration:", error);
+		}
 	};
 
 	return (
@@ -33,7 +43,7 @@ const SignUpForm = () => {
 				<FormField
 					type="text"
 					placeholder="Username"
-					{...register("email")}
+					{...register("username")}
 					label="Username"
 					error={errors.email}
 				/>

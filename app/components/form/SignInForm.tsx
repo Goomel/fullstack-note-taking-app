@@ -19,7 +19,6 @@ const SignInForm = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm<FormFields>({
 		defaultValues: {
