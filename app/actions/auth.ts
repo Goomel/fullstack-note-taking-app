@@ -53,7 +53,6 @@ export const registerUser = async ({
 		return { user: userWithoutPassword, message: "User created" };
 	} catch (error: unknown) {
 		if (error instanceof Error) {
-			console.log(error.message);
 			return { message: "Something went wrong" };
 		}
 	}

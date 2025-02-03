@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +8,8 @@ import z from "zod";
 import FormField from "../ui/FormField";
 import ButtonPrimary from "../ui/ButtonPrimary";
 import { AuthForm } from "../ui/AuthForm";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
 	email: z.string().email("Invalid email address"),
@@ -16,6 +19,8 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 const SignInForm = () => {
+	const router = useRouter();
+	const [loginError, setLoginError] = useState<boolean>(false);
 	const {
 		register,
 		handleSubmit,
@@ -28,13 +33,26 @@ const SignInForm = () => {
 		resolver: zodResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<FormFields> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<FormFields> = async (data) => {
+		const signInData = await signIn("credentials", {
+			redirect: false,
+			email: data.email,
+			password: data.password,
+		});
+
+		if (!signInData?.ok) {
+			setLoginError(true);
+		} else {
+			router.push("/");
+		}
 	};
 
 	return (
 		<AuthForm onSubmit={handleSubmit(onSubmit)} title="Sign in to your account">
 			<div className="space-y-3">
+				{loginError && (
+					<p className="text-red-500 text-sm">Invalid email or password</p>
+				)}
 				<FormField
 					type="text"
 					placeholder="E-mail"

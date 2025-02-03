@@ -7,6 +7,7 @@ import FormField from "../ui/FormField";
 import ButtonPrimary from "../ui/ButtonPrimary";
 import { AuthForm } from "../ui/AuthForm";
 import { registerUser } from "@/app/actions/auth";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
 	username: z
@@ -20,6 +21,7 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 const SignUpForm = () => {
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -31,7 +33,11 @@ const SignUpForm = () => {
 	const onSubmit: SubmitHandler<FormFields> = async (data) => {
 		try {
 			const response = await registerUser(data);
-			console.log(response);
+			if (response?.user) {
+				router.push("/");
+			} else {
+				console.error("Error during registration");
+			}
 		} catch (error) {
 			console.error("Error during registration:", error);
 		}
@@ -45,7 +51,7 @@ const SignUpForm = () => {
 					placeholder="Username"
 					{...register("username")}
 					label="Username"
-					error={errors.email}
+					error={errors.username}
 				/>
 				<FormField
 					type="text"
