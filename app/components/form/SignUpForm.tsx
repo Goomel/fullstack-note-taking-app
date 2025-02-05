@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
@@ -22,6 +23,7 @@ type FormFields = z.infer<typeof schema>;
 
 const SignUpForm = () => {
 	const router = useRouter();
+	const [signUpError, setSignUpError] = useState<boolean>(false);
 	const {
 		register,
 		handleSubmit,
@@ -36,9 +38,10 @@ const SignUpForm = () => {
 			if (response?.user) {
 				router.push("/");
 			} else {
-				console.error("Error during registration");
+				setSignUpError(true);
 			}
 		} catch (error) {
+			setSignUpError(true);
 			console.error("Error during registration:", error);
 		}
 	};
@@ -46,6 +49,9 @@ const SignUpForm = () => {
 	return (
 		<AuthForm onSubmit={handleSubmit(onSubmit)} title="Sign up">
 			<div className="space-y-3">
+				{signUpError && (
+					<p className="text-red-500 text-sm">Error during registration</p>
+				)}
 				<FormField
 					type="text"
 					placeholder="Username"
