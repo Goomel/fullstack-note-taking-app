@@ -13,7 +13,10 @@ import { useRouter } from "next/navigation";
 
 const schema = z.object({
 	email: z.string().email("Invalid email address"),
-	password: z.string().min(6, "Password must be at least 6 characters long"),
+	password: z
+		.string()
+		.nonempty("Password is required")
+		.min(6, "Password must be at least 6 characters long"),
 });
 
 type FormFields = z.infer<typeof schema>;
