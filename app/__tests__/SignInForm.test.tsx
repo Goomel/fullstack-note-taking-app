@@ -2,7 +2,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import SignInForm from "@/app/components/form/SignInForm";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { sign } from "crypto";
 
 // Mock the next-auth signIn function
 jest.mock("next-auth/react", () => ({

@@ -22,10 +22,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={inter.variable}>
-			<body className="bg-gray-50">
-				<Navbar />
-				{children}
-			</body>
+			<body className="bg-gray-50">{children}</body>
 		</html>
 	);
 }
