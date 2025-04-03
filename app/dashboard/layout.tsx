@@ -1,4 +1,5 @@
-import Navbar from "@/app/components/ui/Navbar";
+import TopBar from "@/app/components/ui/header/TopBar";
+import Sidebar from "@/app/components/ui/sidebar/Sidebar";
 
 const DashboardLayout = ({
   children,
@@ -7,8 +8,13 @@ const DashboardLayout = ({
 }>) => {
   return (
     <div>
-      <Navbar />
-      {children}
+      <div className="grid grid-cols-[320px_1fr]">
+        <Sidebar />
+        <div>
+          <TopBar />
+          {children}
+        </div>
+      </div>
     </div>
   );
 };

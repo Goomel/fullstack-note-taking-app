@@ -6,8 +6,8 @@ export default async function SignIn() {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-sky-100 lg:flex-row">
       <div className="mb-10 flex w-full flex-col items-center justify-center gap-y-5 lg:mb-0 lg:h-full lg:w-1/2 lg:bg-white">
-        <h1 className="text-center text-xl font-bold uppercase text-gray-700 sm:text-2xl lg:text-3xl">
-          Your notes
+        <h1 className="text-center text-xl font-bold text-gray-700 sm:text-2xl lg:text-3xl">
+          Notes
         </h1>
         <Image
           src={notesIcon}
