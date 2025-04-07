@@ -1,26 +1,26 @@
 import { twMerge } from "tailwind-merge";
 
 type ButtonPrimaryProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-	children: React.ReactNode;
-	className?: string;
+  children: React.ReactNode;
+  className?: string;
 };
 
 const ButtonPrimary = ({
-	children,
-	className,
-	...buttonProps
+  children,
+  className,
+  ...buttonProps
 }: ButtonPrimaryProps) => {
-	return (
-		<button
-			className={twMerge(
-				"px-4 py-2 lg:px-4 lg:py-3 bg-blue-500 hover:bg-blue-400 transition-colors text-white rounded-md lg:rounded-lg disabled:opacity-60 disabled:cursor-not-allowed",
-				className
-			)}
-			{...buttonProps}
-		>
-			{children}
-		</button>
-	);
+  return (
+    <button
+      className={twMerge(
+        "h-10 rounded-md bg-indigo-600 px-4 text-sm font-medium text-white transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 disabled:cursor-not-allowed disabled:opacity-60 lg:rounded-lg lg:px-4",
+        className,
+      )}
+      {...buttonProps}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default ButtonPrimary;
